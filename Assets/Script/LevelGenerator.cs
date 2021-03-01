@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour
 {
-    int width = 3;
-    int length = 5;
-    int height = 10;
+    public static LevelGenerator instance;
+    public int width = 3;
+    public int length = 5;
+    public int height = 10;
     
     
     
@@ -16,7 +17,7 @@ public class LevelGenerator : MonoBehaviour
     void Start()
     {
         gridElements = new GridElement[width][][];
-        
+        instance = this;
         
         for (int x = 0; x < width; x++)
         {
@@ -27,7 +28,7 @@ public class LevelGenerator : MonoBehaviour
                 for (int z = 0; z < length; z++)
                 {
                     GridElement g = Instantiate(gridElement, new Vector3(x, y, z), Quaternion.identity, this.transform);
-                    g.name = "GridElement_" + x + "_" + y + "_" + z;
+                    g.initialize(x, y, z);
                     gridElements02[z] = g;
                 }
                 gridElements01[y] = gridElements02;
